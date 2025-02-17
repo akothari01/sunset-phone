@@ -30,6 +30,9 @@ export default function Index() {
   const [locationDetails, setLocationDetails] = useState<Location.LocationGeocodedAddress[] | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [sunTimes, setSunTimes] = useState<SunTimes | null>(null);
+  const [isRise, setRise] = useState<boolean>(false);
+  const [isSet, setSet] = useState<boolean>(false);
+  const [isNoon, setNoon] = useState<boolean>(false);
 
   useEffect(() => {async function getCurrentLocation(){
     let {status} = await Location.requestForegroundPermissionsAsync();
@@ -55,6 +58,18 @@ export default function Index() {
     }
   },[location])
 
+  function toggleRise(){
+    setRise(prevRise => !prevRise)
+  }
+
+  function toggleSet(){
+    setSet(prevSet => !prevSet)
+  }
+
+  function toggleNoon(){
+    setNoon(prevNoon => !prevNoon)
+  }
+
   return (
       <ImageBackground source={require("@/assets/images/sunset.jpg")} style={{
         width: '100%', 
@@ -72,9 +87,9 @@ export default function Index() {
             alignItems: "center",
             maxHeight: 200
           }}>
-            <TimeSwitch type="Sunrise" time={sunTimes ? sunTimes.results.sunrise : "NA"}/>
-            <TimeSwitch type="Noon" time={sunTimes ? sunTimes.results.solar_noon : "NA"}/>
-            <TimeSwitch type="Sunset" time={sunTimes ? sunTimes.results.sunset : "NA"}/>
+            <TimeSwitch type="Sunrise " time={sunTimes ? sunTimes.results.sunrise : "NA"} value={isRise} toggle={toggleRise}/>
+            <TimeSwitch type="Noon    " time={sunTimes ? sunTimes.results.solar_noon : "NA"} value={isNoon} toggle={toggleNoon}/>
+            <TimeSwitch type="Sunset  " time={sunTimes ? sunTimes.results.sunset : "NA"} value={isSet} toggle={toggleSet}/>
           </View>
           <Text
             style={{
