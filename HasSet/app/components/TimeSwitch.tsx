@@ -17,14 +17,16 @@ export default function TimeSwitch(props : {type: string, time: string}){
             fontSize: 40,
             fontWeight: "bold",
             color: "rgb(255, 232, 197)",
-            maxWidth: "100%",
+            flex: 1,
+            minWidth: 135
             }}
             >{props.type}</Text>
             <Text
             style={{
                 fontSize: 20,
                 color: "rgb(255, 255, 255)",
-                fontWeight:"bold"
+                fontWeight:"bold",
+                flex: 1
             }}>{props.time}</Text>
             <Switch
             style={{

@@ -50,7 +50,7 @@ export default function Index() {
       fetch(`https://api.sunrisesunset.io/json?lat=${location.coords.latitude}&lng=${location.coords.longitude}`)
       .then(response =>(response.json()))
       .then(data => {
-        setSunTimes(sunTimes)
+        setSunTimes(data)
       })
     }
   },[location])
@@ -72,9 +72,9 @@ export default function Index() {
             alignItems: "center",
             maxHeight: 200
           }}>
-            <TimeSwitch type="Sunrise" time="5:54:56 AM"/>
-            <TimeSwitch type="Noon    " time="5:54:56 AM"/>
-            <TimeSwitch type="Sunset " time="5:54:56 AM"/>
+            <TimeSwitch type="Sunrise" time={sunTimes ? sunTimes.results.sunrise : "NA"}/>
+            <TimeSwitch type="Noon" time={sunTimes ? sunTimes.results.solar_noon : "NA"}/>
+            <TimeSwitch type="Sunset" time={sunTimes ? sunTimes.results.sunset : "NA"}/>
           </View>
           <Text
             style={{
