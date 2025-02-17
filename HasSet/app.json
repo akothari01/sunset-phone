@@ -36,7 +36,8 @@
       [
         "expo-location",
         {
-          "isAndroidForegroundServiceEnabled":true
+          "isAndroidForegroundServiceEnabled":true,
+          "isAndroidBackgroundLocationEnabled":true
         }
       ]
     ],

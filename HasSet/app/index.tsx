@@ -35,7 +35,7 @@ export default function Index() {
   const [isNoon, setNoon] = useState<boolean>(false);
 
   useEffect(() => {async function getCurrentLocation(){
-    let {status} = await Location.requestForegroundPermissionsAsync();
+    let {status} = await Location.requestBackgroundPermissionsAsync();
     if(status !== 'granted'){
       setErrorMsg('Permission to access location was denied');
       return;
@@ -77,8 +77,14 @@ export default function Index() {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        gap: 100
+        gap: 100,
         }}>
+          <Text
+          style={{
+            fontSize: 30,
+            fontWeight: 900,
+            color: "rgb(0, 0, 0)"
+          }}>Enable for Azaan</Text>
           <View
           style={{
             flex: 1,
@@ -95,9 +101,9 @@ export default function Index() {
             style={{
               fontSize: 30,
               fontWeight: 900,
-              color: "rgb(0, 255, 242)"
+              color: "rgb(255, 255, 255)"
             }}
-          >Current Location: {locationDetails ? locationDetails[0].street + ', ' + locationDetails[0].city + ', ' + locationDetails[0].country : "fetching"}</Text>
+          >Current Location: {'\n'}{locationDetails ? locationDetails[0].street + ', ' + locationDetails[0].city + ', ' + locationDetails[0].country : "fetching"}</Text>
           <Text
             style={{
               color: "white",

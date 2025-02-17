@@ -22,7 +22,7 @@ export default function TimeSwitch(props : {type: string, time: string, value: b
             style={{
                 fontSize: 20,
                 color: "rgb(255, 255, 255)",
-                fontWeight:"bold",
+                fontWeight:600,
             }}>{props.time}</Text>
             <Switch
             style={{
