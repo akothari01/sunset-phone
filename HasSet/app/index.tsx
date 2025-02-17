@@ -8,9 +8,28 @@ import TimeSwitch from "./components/TimeSwitch";
 
 export default function Index() {
 
+  type SunTimes = {
+    results: {
+      date: string;
+      dawn: string;
+      day_length: string;
+      dusk: string;
+      first_light: string;
+      golden_hour: string;
+      last_light: string;
+      solar_noon: string;
+      sunrise: string;
+      sunset: string;
+      timezone: string;
+      utc_offset: number;
+    };
+    status: string;
+  };
+
   const [location, setLocation] = useState<Location.LocationObject | null >(null);
   const [locationDetails, setLocationDetails] = useState<Location.LocationGeocodedAddress[] | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [sunTimes, setSunTimes] = useState<SunTimes | null>(null);
 
   useEffect(() => {async function getCurrentLocation(){
     let {status} = await Location.requestForegroundPermissionsAsync();
@@ -22,7 +41,6 @@ export default function Index() {
     let locationAddress = await Location.reverseGeocodeAsync({latitude: location.coords.latitude, longitude: location.coords.longitude})
     setLocation(location)
     setLocationDetails(locationAddress)
-    console.log(JSON.stringify(locationAddress))
     }
     getCurrentLocation()
   }, [new Date()])
@@ -32,8 +50,7 @@ export default function Index() {
       fetch(`https://api.sunrisesunset.io/json?lat=${location.coords.latitude}&lng=${location.coords.longitude}`)
       .then(response =>(response.json()))
       .then(data => {
-        console.log(data)
-        console.log('here')
+        setSunTimes(sunTimes)
       })
     }
   },[location])
@@ -45,23 +62,25 @@ export default function Index() {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        gap: 60
+        gap: 100
         }}>
           <View
           style={{
             flex: 1,
             flexDirection: "column",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
+            maxHeight: 200
           }}>
-            <TimeSwitch/>
-            <TimeSwitch/>
-            <TimeSwitch/>
+            <TimeSwitch type="Sunrise" time="5:54:56 AM"/>
+            <TimeSwitch type="Noon    " time="5:54:56 AM"/>
+            <TimeSwitch type="Sunset " time="5:54:56 AM"/>
           </View>
           <Text
             style={{
               fontSize: 30,
               fontWeight: "bold",
+              color: "rgb(212, 197, 247)"
             }}
           >Current Location: {locationDetails ? locationDetails[0].street + ', ' + locationDetails[0].city + ', ' + locationDetails[0].country : "fetching"}</Text>
           <Text
