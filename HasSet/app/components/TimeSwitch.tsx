@@ -14,8 +14,8 @@ export default function TimeSwitch(props : {type: string, time: string, value: b
             <Text
             style={{
             fontSize: 40,
-            fontWeight: "bold",
-            color: "rgb(255, 232, 197)",
+            fontWeight: 900,
+            color: "rgb(255, 236, 207)",
             }}
             >{props.type}</Text>
             <Text

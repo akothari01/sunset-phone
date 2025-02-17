@@ -94,8 +94,8 @@ export default function Index() {
           <Text
             style={{
               fontSize: 30,
-              fontWeight: "bold",
-              color: "rgb(212, 197, 247)"
+              fontWeight: 900,
+              color: "rgb(0, 255, 242)"
             }}
           >Current Location: {locationDetails ? locationDetails[0].street + ', ' + locationDetails[0].city + ', ' + locationDetails[0].country : "fetching"}</Text>
           <Text
